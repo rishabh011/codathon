@@ -1,0 +1,32 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+
+	<servlet>
+		<servlet-name>UserInfoStore</servlet-name>
+		<servlet-class>com.codathon.rish.api.UserInfoStore</servlet-class>
+	</servlet>
+
+
+	<servlet>
+		<servlet-name>UserInfoFetch</servlet-name>
+		<servlet-class>com.codathon.rish.api.UserInfoFetch</servlet-class>
+	</servlet>
+	
+	
+	<servlet-mapping>
+		<servlet-name>UserInfoStore</servlet-name>
+		<url-pattern>/UserInfoStore</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>UserInfoFetch</servlet-name>
+		<url-pattern>/UserInfoFetch</url-pattern>
+	</servlet-mapping>
+
+
+</web-app>
