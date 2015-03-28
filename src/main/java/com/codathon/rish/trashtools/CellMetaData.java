@@ -1,4 +1,4 @@
-package com.codathon.rist.trashtools;
+package com.codathon.rish.trashtools;
 
 import java.util.Comparator;
 import java.util.regex.Matcher;

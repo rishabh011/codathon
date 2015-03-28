@@ -1,8 +1,9 @@
-package com.codathon.rist.trashtools;
+package com.codathon.rish.trashtools;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -20,9 +21,49 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 
+import com.codathon.rish.proto.UserInfoPb;
+
 public class ExcelHelper {
 
 
+	public static void main(String[] args) {
+		List<CellMetaData> listData = new ArrayList<CellMetaData>();
+
+		UserInfoPb.Builder to1 = UserInfoPb.newBuilder();
+	    to1.clearId();
+	    to1.setId("1");
+	    to1.clearName();
+	    to1.setName("r");
+	    to1.clearGender();
+	    to1.setGender(Integer.parseInt("1"));
+	    to1.clearLocation();
+	    to1.getLocationBuilder().setLat("123");
+	    to1.getLocationBuilder().setLong("1231");
+	    listData.add(ObjectConverterUpdater.updater(to1.build()));
+	    
+
+		UserInfoPb.Builder to2 = UserInfoPb.newBuilder();
+	    to2.clearId();
+	    to2.setId("2");
+	    to2.clearName();
+	    to2.setName("ru");
+	    to2.clearGender();
+	    to2.setGender(Integer.parseInt("2"));
+	    to2.clearLocation();
+	    to2.getLocationBuilder().setLat("1234");
+	    to2.getLocationBuilder().setLong("12316");
+	    listData.add(ObjectConverterUpdater.updater(to2.build()));
+	    
+
+		String outFileName = "/home/ilodge/Desktop/OutFile.xlsx";
+	    Set<CellMetaData> cmdList = readExcelDataInSet(outFileName);
+	    List<UserInfoPb> userList = new ArrayList<UserInfoPb>();
+	    for(CellMetaData cmd : cmdList) {
+	    	userList.add(ObjectConverterUpdater.converter(cmd));
+	    }
+	    System.out.println(userList.get(0).toString());
+	}
+	
 	//prints headers in output file
 	public static void writeHeaders(HSSFSheet sheet, int rowNum) {
 		
@@ -36,19 +77,19 @@ public class ExcelHelper {
 		
 		Row row = sheet.createRow(rowNum);
         Cell cell0 = row.createCell(CellMetaData.idColNum);
-        cell0.setCellValue((String) "sheet");
+        cell0.setCellValue((String) "id");
         cell0.setCellStyle(style);
         Cell cell1 = row.createCell(CellMetaData.nameColNum);
-        cell1.setCellValue((String) "cell");
+        cell1.setCellValue((String) "name");
         cell1.setCellStyle(style);
         Cell cell2 = row.createCell(CellMetaData.genderCellColNum);
-        cell2.setCellValue((String) "derivedCell");
+        cell2.setCellValue((String) "gender");
         cell2.setCellStyle(style);
         Cell cell3 = row.createCell(CellMetaData.latitudeColNum);
-        cell3.setCellValue((String) "valueFormula");
+        cell3.setCellValue((String) "latitude");
         cell3.setCellStyle(style);
         Cell cell4 = row.createCell(CellMetaData.longitudeColNum);
-        cell4.setCellValue((String) "derivedFormula");
+        cell4.setCellValue((String) "longitude");
         cell4.setCellStyle(style);
 	}
 	
@@ -146,6 +187,9 @@ public class ExcelHelper {
 
 				cell = row.getCell(CellMetaData.latitudeColNum);
 				cmd.latitude = cell.getStringCellValue().trim();
+
+				cell = row.getCell(CellMetaData.longitudeColNum);
+				cmd.longitude = cell.getStringCellValue().trim();
 				
 				allDataSet.add(cmd);
 				

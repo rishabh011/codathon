@@ -1,4 +1,4 @@
-package com.codathon.rist.trashtools;
+package com.codathon.rish.trashtools;
 
 import com.codathon.rish.proto.UserInfoPb;
 
