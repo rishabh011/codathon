@@ -1,8 +1,8 @@
 # codathon
 
-use maven to build project
+use maven to build project : mvn clean install; mvn package;
 
-envornment : linux to deploy using shell script
+envornment : linux to deploy using shell script filename - deploy_war.sh
 
 executables: protoc version 2.4.1 (required)
 
